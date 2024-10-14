@@ -1,6 +1,6 @@
 
 class Constants {
-  static String baseUrl = "https://myalvand.darkube.app/fa/api/v1";
+  static String baseUrl = "https://dummyjson.com";
   static String baseUrlSocket = "wss://myalvand.darkube.app/ws";
   // static String baseUrl = "http://192.168.1.81:8000/fa/api/v1";
   // static String baseUrlSocket = "192.168.1.81:8000";

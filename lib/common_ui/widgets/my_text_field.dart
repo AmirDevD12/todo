@@ -44,7 +44,7 @@ class MyTextField extends StatelessWidget {
       children: [
         Text(label, style: TextRegularStyle.xs.copyWith(color: MyColors.grey.shade600)),
         const SizedBox(height: MySpaces.s6),
-        TextField(
+        TextField (
           readOnly: readOnly??false,
           controller: controller,
           keyboardType: isPhone ? TextInputType.phone : isPassword ? TextInputType.visiblePassword : isTextArea ? TextInputType.multiline : TextInputType.text,
@@ -53,7 +53,7 @@ class MyTextField extends StatelessWidget {
           maxLines: isTextArea ? 4 : 1,
           textInputAction: textInputAction,
           maxLength: maxLength,
-          textAlign: !isPhone && !isPassword? TextAlign.start : TextAlign.end,
+          textAlign: !isPhone && !isPassword? TextAlign.end : TextAlign.end,
           autofocus: false,
           cursorColor:  MyColors.grey.shade600,
           onChanged: isPhone == false ? onChanged : (value) {
@@ -68,21 +68,16 @@ class MyTextField extends StatelessWidget {
           },
 
           decoration: InputDecoration(
-            fillColor: MyColors.primary,
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: MyColors.grey.shade300, width: 1.0),
-              borderRadius: BorderRadius.circular(12),
+            focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: MyColors.border, width: 2.0),
             ),
-            disabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: MyColors.grey.shade300, width: 1.0),
-              borderRadius: BorderRadius.circular(12),
+            disabledBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: MyColors.border, width: 2.0),
             ),
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: MyColors.grey.shade300, width: 1.0)),
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: MyColors.grey.shade300, width: 1.0)),
+            border: const UnderlineInputBorder(
+                borderSide: BorderSide(color: MyColors.border, width: 2.0)),
+            enabledBorder: const UnderlineInputBorder(
+                borderSide: BorderSide(color: MyColors.border, width: 2.0)),
             counterText: '',
             hintText: hint != null ? hint.toString().toPersianDigit() : "",
             hintStyle: TextRegularStyle.md.copyWith(color: MyColors.grey.shade400),

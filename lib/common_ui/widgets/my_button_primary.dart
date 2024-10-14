@@ -39,7 +39,7 @@ class MyButtonPrimary extends StatelessWidget {
         style: buttonStyle ??
             ButtonStyle(
                 backgroundColor:
-                    WidgetStateProperty.all(MyColors.primary.shade900)),
+                    WidgetStateProperty.all(MyColors.primaryColor)),
       ),
     );
   }

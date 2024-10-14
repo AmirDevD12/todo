@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MyColors {
+  static const primaryColor = Color(0xff9395D3);
+  static const iconTask = Color(0xffD6D7EF);
+  static const border = Color(0xff8B8787);
   static const MaterialColor primary = MaterialColor(0xFF012169, {
     50: Color(0xFFEAF5FF),
     100: Color(0xFF99CEFF),

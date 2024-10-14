@@ -10,6 +10,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:todo/common_ui/theme/theme_controller.dart';
 import 'package:todo/common_ui/theme/theme_service.dart';
 import 'package:todo/core/utils/app_context.dart';
+import 'package:todo/features/home/presentation/controller/home_controller.dart';
 import 'core/auth_token_storage/auth_token_storage.dart';
 import 'core/network/dio_request_manager.dart';
 import 'core/network/i_api_request_manager.dart';
@@ -25,7 +26,7 @@ Future<void> main() async {
 
   AuthTokenStorage.instance.watch().listen((event) {
     if (event == null) {
-      Get.offAndToNamed(Routes.phoneNumberPage);
+      // Get.offAndToNamed(Routes.phoneNumberPage);
     }
   });
 
@@ -36,9 +37,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!Get.isRegistered<AppContextProvider>()) {
-      Get.put<AppContextProvider>(AppContextProvider(context));
-    }
+    // if (!Get.isRegistered<AppContextProvider>()) {
+    //   Get.put<AppContextProvider>(AppContextProvider(context));
+    // }
     return GetMaterialApp(
       title: 'Alvand',
       // theme: AppTheme.,
@@ -57,8 +58,9 @@ class MyApp extends StatelessWidget {
       ],
       locale: const Locale('fa', 'IR'),
       getPages: appPages(),
-      initialRoute: Routes.splash,
+      initialRoute: Routes.home,
       initialBinding: BindingsBuilder(() {
+        Get.put(HomeController());
         Get.put(AppContextProvider(context));
         Get.put<IHttpClient>(DioHttpClient(logEnabled: true));
       }),
