@@ -14,7 +14,9 @@ class MyCard extends StatelessWidget {
       required this.title,
       required this.detail,
       this.description,
-        required this.completed,
+        this.completed=false,
+        this.onTapDelete,
+        this.onTapEdite,
         required this.onTap
 
 });
@@ -22,6 +24,8 @@ class MyCard extends StatelessWidget {
   final String? title;
   final String? description;
   final String? detail;
+  final Function()? onTapDelete;
+  final Function()? onTapEdite;
   final Function()? onTap;
   final CardType cardType;
   final bool completed;
@@ -50,8 +54,10 @@ class MyCard extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            if (cardType == CardType.task) ...{
-              _taskCard()
+            if (cardType == CardType.todo) ...{
+              _todoCard()
+            }else if(cardType == CardType.completedTodo)...{
+              _completedTodoCard()
             }
           ],
         ),
@@ -59,7 +65,55 @@ class MyCard extends StatelessWidget {
     );
   }
 
-  Widget _taskCard() {
+  Widget _completedTodoCard() {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const SizedBox(width: MySpaces.s16,),
+        const Icon(Hicons.tick_bold,color: MyColors.iconTask,) ,
+        const SizedBox(
+          width: MySpaces.s16,
+        ),
+        Expanded(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(title??"",softWrap: true,overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                    style: TextBoldStyle.md.copyWith(
+                      color: MyColors.primaryColor
+                    ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: MySpaces.s8,),
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(detail??"",softWrap: true,overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                    style: TextMediumStyle.xs.copyWith(
+                      color: Colors.black
+                    ),
+                    ),
+                  ),
+                ],
+              ),
+
+            ],
+          ),
+        ),
+
+
+      ],
+    );
+  }
+  Widget _todoCard() {
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.end,
@@ -70,11 +124,11 @@ class MyCard extends StatelessWidget {
             Icon(completed?Hicons.tick_bold: Hicons.tick_square_light_outline,color: MyColors.iconTask,) ,
             const SizedBox(width: MySpaces.s16,),
              GestureDetector(
-                 onTap: (){},
+                 onTap: onTapDelete,
                  child: const Icon(Hicons.delete_1_light_outline,color: MyColors.iconTask,),),
             const SizedBox(width: MySpaces.s16,),
             GestureDetector(
-                onTap: (){},
+                onTap: onTapEdite,
                 child: const Icon(Hicons.edit_1_light_outline,color: MyColors.iconTask,)),
             const SizedBox(width: MySpaces.s16,)
 
@@ -122,4 +176,4 @@ class MyCard extends StatelessWidget {
   }
 }
 
-enum CardType { task, }
+enum CardType { todo,completedTodo }

@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hicons/flutter_hicons.dart';
 import 'package:get/get.dart';
-import 'package:todo/common_ui/resource/my_colors.dart';
 import 'package:todo/common_ui/resource/my_spaces.dart';
 import 'package:todo/common_ui/widgets/my_appbar.dart';
 import 'package:todo/common_ui/widgets/my_button_primary.dart';
-import 'package:todo/common_ui/widgets/my_loading.dart';
 import 'package:todo/common_ui/widgets/my_snackbar.dart';
 import 'package:todo/common_ui/widgets/my_text_field.dart';
-import 'package:todo/core/utils/my_app_localization.dart';
-import 'package:todo/features/all_task/presentation/controller/all_task_controller.dart';
-import 'package:todo/features/all_task/presentation/widget/task_widget.dart';
 import 'package:todo/features/new_task/presentation/controller/new_todo_controller.dart';
 
 class NewTodoPage extends GetView<NewTodoController> {

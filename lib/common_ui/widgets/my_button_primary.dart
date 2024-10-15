@@ -33,7 +33,7 @@ class MyButtonPrimary extends StatelessWidget {
         iconAlignment: IconAlignment.start,
         label: Text(
           text,
-          style: textStyle ?? TextMediumStyle.md.copyWith(color: MyColors.primary.shade50),
+          style: textStyle ?? TextMediumStyle.md.copyWith(color: Colors.white),
         ).paddingSymmetric(vertical: MySpaces.s12),
         onPressed: onPress,
         style: buttonStyle ??

@@ -5,11 +5,11 @@ import 'package:todo/common_ui/resource/my_colors.dart';
 import 'package:todo/common_ui/resource/my_spaces.dart';
 import 'package:todo/common_ui/widgets/my_appbar.dart';
 import 'package:todo/core/routers/routes.dart';
-import 'package:todo/features/all_task/presentation/controller/all_task_controller.dart';
-import 'package:todo/features/all_task/presentation/widget/task_widget.dart';
+import 'package:todo/features/completed_todo/presentation/controller/completed_todo_controller.dart';
+import 'package:todo/features/completed_todo/presentation/widget/item_compledet_widget.dart';
 
-class AllTaskPage extends GetView<AllTaskController> {
-  const AllTaskPage({super.key});
+class CompletedTodoPage extends GetView<CompletedTodoController> {
+  const CompletedTodoPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -51,15 +51,8 @@ class AllTaskPage extends GetView<AllTaskController> {
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 final data = controller.allTask![index];
-                                return ItemTask(
+                                return ItemCompletedTodo(
                                   data: data,
-                                  onTapDelete: (data) {
-                                    controller.getDeleteTask(id: data.id ?? 0);
-                                  },
-                                  onTapEdite: (data) {
-                                    Get.toNamed(Routes.editeTodo,
-                                        arguments: {"title": data.todo ?? "","id":data.id??0});
-                                  },
                                 );
                               },
                             ),

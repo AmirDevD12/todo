@@ -4,17 +4,20 @@ import 'package:todo/features/all_task/domain/entity/task_entity.dart';
 
 class ItemTask extends StatelessWidget {
   final TodoEntity data;
-  final Function(TodoEntity)? onTap;
+  final Function(TodoEntity)? onTapDelete;
+  final Function(TodoEntity)? onTapEdite;
 
-  const ItemTask({super.key, required this.data, this.onTap});
+  const ItemTask({super.key, required this.data, this.onTapDelete,this.onTapEdite});
 
   @override
   Widget build(BuildContext context) {
     return MyCard(
-      cardType: CardType.task,
+      cardType: CardType.todo,
       title: "task ${data.id.toString()}",
       detail: data.todo??"",
-      onTap: onTap != null ? () => onTap!(data) : null,
+      onTapEdite: onTapEdite != null ? () => onTapEdite!(data) : null,
+      onTapDelete: onTapDelete != null ? () => onTapDelete!(data) : null,
+      onTap:null,
       completed: data.completed??false,
     );
   }

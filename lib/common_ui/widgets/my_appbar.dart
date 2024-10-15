@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hicons/flutter_hicons.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:todo/common_ui/resource/my_colors.dart';
 import 'package:todo/common_ui/resource/my_spaces.dart';
@@ -27,7 +26,7 @@ class MyAppbar extends StatelessWidget {
               title ?? "",
               textAlign: TextAlign.left,
               style: TextBoldStyle.lg.copyWith(
-                color: MyColors.white,
+                color: Colors.white,
                 fontWeight: FontWeight.bold
               ),
             ),
@@ -36,7 +35,7 @@ class MyAppbar extends StatelessWidget {
           if (isBack) ...{
             IconButton(
               onPressed: () => Get.back(),
-              icon:  Icon(Hicons.left_1_light_outline,color: MyColors.white,size: 30,),
+              icon:  const Icon(Hicons.left_1_light_outline,color: Colors.white,size: 30,),
             )
           }
         ],

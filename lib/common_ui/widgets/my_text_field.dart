@@ -11,7 +11,7 @@ class MyTextField extends StatelessWidget {
       {super.key,
       required this.controller,
       required this.label,
-      this.rightIcon,
+      this.rightWidget,
       this.hint,
       this.maxLength,
       this.isPhone = false,
@@ -21,11 +21,11 @@ class MyTextField extends StatelessWidget {
       this.isHidePassword = false,
       this.onChanged,
       this.isTextArea = false,
-        this.leftWidget, this.readOnly});
+        this.leftIcon, this.readOnly});
 
   final TextEditingController controller;
   final String label;
-  final IconData? rightIcon;
+  final IconData? leftIcon;
   final String? hint;
   final int? maxLength;
   final bool isPhone;
@@ -35,7 +35,7 @@ class MyTextField extends StatelessWidget {
   final bool? isHidePassword;
   final ValueChanged<String>? onChanged;
   final bool isTextArea;
-  final Widget? leftWidget;
+  final Widget? rightWidget;
   final bool? readOnly;
   @override
   Widget build(BuildContext context) {
@@ -82,8 +82,8 @@ class MyTextField extends StatelessWidget {
             hintText: hint != null ? hint.toString().toPersianDigit() : "",
             hintStyle: TextRegularStyle.md.copyWith(color: MyColors.grey.shade400),
             floatingLabelStyle: const TextStyle(color: Color(0xff9E9E9E)),
-            suffixIcon: leftWidget,
-            prefixIcon: rightIcon != null ? IconButton( onPressed: rightIconTap, icon: Icon(rightIcon, color: MyColors.grey.shade500)) : null,
+            suffixIcon: leftIcon != null ? IconButton( onPressed: rightIconTap, icon: Icon(leftIcon, color: MyColors.grey.shade500)) : null,
+            prefixIcon: rightWidget,
             floatingLabelAlignment: FloatingLabelAlignment.start,
             floatingLabelBehavior: FloatingLabelBehavior.auto,
           ),

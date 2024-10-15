@@ -5,9 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:todo/core/constants/constants.dart';
-import 'package:todo/core/model/authentication_entity.dart';
 
-import '../auth_token_storage/auth_token_storage.dart';
 import 'i_api_request_manager.dart';
 
 class DioHttpClient extends IHttpClient {
@@ -15,7 +13,6 @@ class DioHttpClient extends IHttpClient {
   BaseOptions? options;
   final String baseUrl = Constants.baseUrl;
   final bool logEnabled;
-  final AuthTokenStorage _authStorage = AuthTokenStorage.instance;
   int _retry401 = 0;
   var logger = Logger();
 
@@ -37,28 +34,6 @@ class DioHttpClient extends IHttpClient {
 
     _dio = Dio(options);
     _dio.interceptors.add(CurlLoggerDioInterceptor());
-
-    _authStorage.load().then((value) {
-      if (value != null) {
-        if (kDebugMode) {
-          logger.w(value.access);
-        }
-        _dio.options.headers["Authorization"] = "Bearer ${value.access}";
-      } else {
-        _dio.options.headers.remove("Authorization");
-      }
-    });
-    _authStorage.watch().listen((event) {
-      if (event != null) {
-        if (kDebugMode) {
-          logger.w(event.access);
-        }
-        _dio.options.headers["Authorization"] = "Bearer ${event.access}";
-      } else {
-        _dio.options.headers.remove("Authorization");
-      }
-    });
-
     setInterceptor();
   }
 
@@ -78,14 +53,6 @@ class DioHttpClient extends IHttpClient {
                 error: "API Error", stackTrace: StackTrace.empty);
           }
 
-          if (err.response?.statusCode == 401) {
-            var authInfo = await _authStorage.load();
-            if (authInfo != null && _retry401 < 6) {
-               return await refreshToken(handler, err, authInfo);
-            } else {
-              _authStorage.delete();
-            }
-          }
 
           switch (err.type) {
             case DioExceptionType.receiveTimeout:
@@ -142,57 +109,6 @@ class DioHttpClient extends IHttpClient {
           compact: true,
           maxWidth: 90));
     }
-  }
-
-  Future<dynamic> refreshToken(ErrorInterceptorHandler handler,
-      DioException err, AuthInfo authInfo) async {
-    final refreshToken = authInfo.refresh;
-    logger.w("refreshToken===>  $refreshToken");
-    Dio dio;
-    BaseOptions options = BaseOptions(
-      baseUrl: Constants.baseUrl,
-      connectTimeout: _timeout,
-      receiveTimeout: _timeout,
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Connection': 'keep-alive',
-      },
-    );
-    dio = Dio(options);
-    dio.interceptors.add(CurlLoggerDioInterceptor());
-    dio.interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: true,
-        error: true,
-        compact: true,
-        maxWidth: 90));
-
-    var formData = {"refresh": refreshToken};
-
-      final Response response = await dio.post('/users/token/refresh/', data: formData).catchError((onError) async {
-        //Logout from the Application
-        print("onError>>${onError.toString()}");
-        await _authStorage.delete();
-        return handler.next(handleResponseError(err)!);
-      });
-
-      if (response.statusCode == 200) {
-        _retry401++;
-        await _authStorage.save(AuthInfo(phone: authInfo.phone, access: response.data['data']['access'], refresh: refreshToken));
-        await Future.delayed(const Duration(milliseconds: 200));
-        try {
-          return handler.resolve(await retry(err.requestOptions));
-        } on DioException catch (e) {
-          return handler.next(e);
-        }
-      } else {
-        _authStorage.delete();
-        return handler.next(handleResponseError(err)!);
-      }
-
   }
 
   Future retry(RequestOptions requestOptions) async {

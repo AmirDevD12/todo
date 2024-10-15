@@ -4,7 +4,6 @@ import 'package:flutter_hicons/flutter_hicons.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:todo/common_ui/resource/my_colors.dart';
-import 'package:todo/core/utils/my_app_localization.dart';
 import 'package:todo/features/home/presentation/controller/home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -23,7 +22,7 @@ class HomePage extends GetView<HomeController> {
         child: BottomNavigationBar(
           backgroundColor: Colors.white,
           unselectedItemColor: Colors.grey.shade500,
-          selectedItemColor: MyColors.primary,
+          selectedItemColor: MyColors.primaryColor,
           onTap: controller.changeTabIndex,
           currentIndex: controller.tabIndex.value,
           selectedFontSize: 12,
@@ -51,7 +50,7 @@ class HomePage extends GetView<HomeController> {
                     color: MyColors.iconTask, size: 24),
                 label: "All task".tr),
             BottomNavigationBarItem(
-                icon: controller.tabIndex.value == 0
+                icon: controller.tabIndex.value == 1
                     ? const Icon(Hicons.tick_square_bold,
                     color: MyColors.iconTask, size: 24)
                     : const Icon(Hicons.tick_square_light_outline,
