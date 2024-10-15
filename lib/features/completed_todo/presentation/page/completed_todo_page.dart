@@ -33,32 +33,29 @@ class CompletedTodoPage extends GetView<CompletedTodoController> {
           Expanded(
             child: controller
                 .obx(
-                  (state) => RefreshIndicator(
-                      color: context.theme.primaryColor,
-                      onRefresh: () async {},
-                      child: Column(
-                        children: [
-                          const SizedBox(
+                  (state) => Column(
+                    children: [
+                      const SizedBox(
+                        height: MySpaces.s12,
+                      ),
+                      Expanded(
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(
                             height: MySpaces.s12,
                           ),
-                          Expanded(
-                            child: ListView.separated(
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(
-                                height: MySpaces.s12,
-                              ),
-                              itemCount: controller.allTask!.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                final data = controller.allTask![index];
-                                return ItemCompletedTodo(
-                                  data: data,
-                                );
-                              },
-                            ),
-                          )
-                        ],
-                      )),
+                          itemCount: controller.allTask!.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            final data = controller.allTask![index];
+                            return ItemCompletedTodo(
+                              data: data,
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
                   onLoading: const Center(
                     child: CircularProgressIndicator(),
                   ),
@@ -71,12 +68,10 @@ class CompletedTodoPage extends GetView<CompletedTodoController> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(error.toString()),
-                          const SizedBox(
-                            height: MySpaces.s12,
-                          ),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                controller.getCompleted();
+                              },
                               icon: const Icon(Hicons.refresh_1_light_outline))
                         ],
                       ),

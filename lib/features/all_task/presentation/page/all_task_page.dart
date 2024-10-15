@@ -33,39 +33,36 @@ class AllTaskPage extends GetView<AllTaskController> {
           Expanded(
             child: controller
                 .obx(
-                  (state) => RefreshIndicator(
-                      color: context.theme.primaryColor,
-                      onRefresh: () async {},
-                      child: Column(
-                        children: [
-                          const SizedBox(
+                  (state) => Column(
+                    children: [
+                      const SizedBox(
+                        height: MySpaces.s12,
+                      ),
+                      Expanded(
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(
                             height: MySpaces.s12,
                           ),
-                          Expanded(
-                            child: ListView.separated(
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(
-                                height: MySpaces.s12,
-                              ),
-                              itemCount: controller.allTask!.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                final data = controller.allTask![index];
-                                return ItemTask(
-                                  data: data,
-                                  onTapDelete: (data) {
-                                    controller.getDeleteTask(id: data.id ?? 0);
-                                  },
-                                  onTapEdite: (data) {
-                                    Get.toNamed(Routes.editeTodo,
-                                        arguments: {"title": data.todo ?? "","id":data.id??0});
-                                  },
-                                );
+                          itemCount: controller.allTask!.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            final data = controller.allTask![index];
+                            return ItemTask(
+                              data: data,
+                              onTapDelete: (data) {
+                                controller.getDeleteTask(id: data.id ?? 0);
                               },
-                            ),
-                          )
-                        ],
-                      )),
+                              onTapEdite: (data) {
+                                Get.toNamed(Routes.editeTodo,
+                                    arguments: {"title": data.todo ?? "","id":data.id??0});
+                              },
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
                   onLoading: const Center(
                     child: CircularProgressIndicator(),
                   ),
@@ -78,12 +75,10 @@ class AllTaskPage extends GetView<AllTaskController> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(error.toString()),
-                          const SizedBox(
-                            height: MySpaces.s12,
-                          ),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                controller.getAllTask();
+                              },
                               icon: const Icon(Hicons.refresh_1_light_outline))
                         ],
                       ),

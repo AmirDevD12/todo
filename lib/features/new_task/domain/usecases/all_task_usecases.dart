@@ -1,9 +1,7 @@
 import 'package:either_dart/either.dart';
 import 'package:todo/core/errors/failures.dart';
-import 'package:todo/features/all_task/domain/entity/task_entity.dart';
-import 'package:todo/features/all_task/domain/repository/all_task_repository.dart';
-
 import 'package:todo/core/usecases/usecase.dart';
+import 'package:todo/features/all_task/domain/entity/task_entity.dart';
 import 'package:todo/features/new_task/domain/repository/all_task_repository.dart';
 
 class NewTodoComponents
