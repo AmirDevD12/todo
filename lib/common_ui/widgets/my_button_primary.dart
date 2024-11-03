@@ -13,7 +13,7 @@ class MyButtonPrimary extends StatelessWidget {
       this.textStyle,
         this.isExpand = false,
       required this.text, this.buttonStyle,
-      this.icon});
+      this.icon,this.background});
 
    final ButtonStyle? disableStyle;
    final void Function() onPress;
@@ -22,6 +22,7 @@ class MyButtonPrimary extends StatelessWidget {
    final String text;
    final bool isExpand;
    final Icon? icon;
+   final Color? background;
 
 
    @override
@@ -39,7 +40,7 @@ class MyButtonPrimary extends StatelessWidget {
         style: buttonStyle ??
             ButtonStyle(
                 backgroundColor:
-                    WidgetStateProperty.all(MyColors.primaryColor)),
+                    WidgetStateProperty.all(background??MyColors.primaryColor)),
       ),
     );
   }

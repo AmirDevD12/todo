@@ -4,6 +4,9 @@ import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:todo/features/all_task/presentation/binding/all_task_binding.dart';
 import 'package:todo/features/all_task/presentation/page/all_task_page.dart';
+import 'package:todo/features/auth/presentation/binding/auth_binding.dart';
+import 'package:todo/features/auth/presentation/page/login_page.dart';
+import 'package:todo/features/auth/presentation/page/sign_up_page.dart';
 import 'package:todo/features/completed_todo/presentation/binding/completed_todo_binding.dart';
 import 'package:todo/features/completed_todo/presentation/page/completed_todo_page.dart';
 import 'package:todo/features/edite_todo/presentation/binding/edite_todo_binding.dart';
@@ -23,6 +26,9 @@ class Routes {
   static const String newToDo = "/new_todo";
   static const String editeTodo = "/edite_todo";
   static const String completedTodo = "/completed_todo";
+  static const String authGate = "/auth_gate";
+  static const String loginPage = "/login_page";
+  static const String signUpPage = "/sign_up_page";
 
 }
 
@@ -38,5 +44,7 @@ List<GetPage> appPages() => [
       GetPage(name: Routes.newToDo, page: () => const NewTodoPage(), binding: NewTodoBinding()),
       GetPage(name: Routes.editeTodo, page: () => const EditeTodoPage(), binding: EditeTodoBinding()),
       GetPage(name: Routes.completedTodo, page: () => const CompletedTodoPage(), binding: CompletedTodoBinding()),
+      GetPage(name: Routes.loginPage, page: () => const LoginPage(),binding: AuthBinding()),
+      GetPage(name: Routes.signUpPage, page: () => const SignUpPage(),binding: AuthBinding()),
 
     ];
