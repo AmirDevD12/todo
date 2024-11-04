@@ -16,7 +16,7 @@ class DioHttpClient extends IHttpClient {
   int _retry401 = 0;
   var logger = Logger();
 
-  final _timeout = const Duration(seconds: 30);
+  final _timeout = const Duration(seconds: 10);
 
   DioHttpClient({
     this.logEnabled = kDebugMode,

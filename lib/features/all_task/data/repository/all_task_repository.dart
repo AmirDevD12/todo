@@ -17,7 +17,7 @@ class AllTaskRepositoryImp extends AllTaskRepository {
     try {
       var response = await _allTaskDataSource.getAllTask(params);
       return Right(response);
-    } on DioException catch (e) {
+    }on DioException catch (e) {
       return Left(GeneralFailure("خطا",
           e.response != null ? e.response!.data["error"] : e.error.toString()));
     }
