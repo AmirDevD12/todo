@@ -12,7 +12,6 @@ abstract class IHttpClient {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
-    Dio? dio,
   });
 
   Future<dynamic> postRequest({

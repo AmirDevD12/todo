@@ -52,21 +52,6 @@ class AllTaskController extends GetxController
   }
 
   getUpdateFailedResult(Failure failure,) async {
-if (failure.body.toString().contains("The connection errored") ||
-    !await MyConnectivityService.checkDataNetworks()) {
-
-  MyRequestPendingService.saveRequest(() => getAllTask());
-  print(MyErrorNetwork.isShowBottomShitNetworkError);
-  if (!MyErrorNetwork.isShowBottomShitNetworkError) {
-    MyErrorNetwork.isShowBottomShitNetworkError = true;
-    MyBottomSheet.show(
-        child: MyErrorNetwork.error(),
-        isDraggable: false,
-        isDismissible: false);
-  }
-  return;
-}
-
     MySnackBar.show(failure.header.toString(), failure.body.toString());
     change(failure.body.toString(), status: RxStatus.error());
   }

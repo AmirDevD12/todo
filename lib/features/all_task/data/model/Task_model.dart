@@ -10,7 +10,7 @@ class TaskModel extends TaskEntity{
 
   factory TaskModel.fromJson(Map<String, dynamic> json) {
     return TaskModel(
-      todos: (json["todos"] as List).map((e)=>TodoModel.fromJson(e)).toList(),
+      todos:json["todos"]==null?null: (json["todos"] as List).map((e)=>TodoModel.fromJson(e)).toList(),
       total: json['total'],
       skip: json['skip'],
       limit: json['limit'],

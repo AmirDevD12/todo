@@ -18,7 +18,7 @@ class NewTodoDatasourceIml extends BaseRepository implements NewTodoDatasource {
   @override
   Future<TodoModel> postNewTask(NewTodoParams params) async {
     var request = await httpClient.postRequest(
-        path: '/todos/add', data: jsonEncode(params.toJson()));
+        path: '/todos/add', data: params.toJson());
     final response = TodoModel.fromJson(request);
 
     return response;
