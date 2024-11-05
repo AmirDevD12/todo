@@ -23,19 +23,20 @@ class MyConnectivityService {
     while (!connected) {
       try {
         final result = await InternetAddress.lookup('google.com')
-            .timeout(const Duration(seconds: 3));
+            .timeout(const Duration(seconds: 2));
         final checkData = result.isNotEmpty && result[0].rawAddress.isNotEmpty;
 
         if (checkData) {
           updateStateConnection.add(true);
-          connected = true; // Set to true to exit the loop
+          connected = true;
         }
       } catch (e) {
-        connected = true; // Set to true to exit the loop
-        changeStateConnection();
+        // Log error or handle it as needed, but don't restart the function
       }
 
-      await Future.delayed(const Duration(seconds: 1));
+      if (!connected) {
+        await Future.delayed(const Duration(seconds: 3));
+      }
     }
   }
 

@@ -99,7 +99,7 @@ class DioHttpClient extends IHttpClient {
           err.type == DioExceptionType.connectionTimeout ||
           err.type == DioExceptionType.unknown) {
 
-        _requestCompleter ??= Completer();
+        _requestCompleter = Completer();
 
         MyConnectivityService.changeStateConnection();
         if (!MyErrorNetwork.isShowBottomShitNetworkError) {
